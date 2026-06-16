@@ -33,7 +33,7 @@ def test_redirect():
 
         r = c.get(f"/{short_code}", follow_redirects=False)
         assert r.status_code == 307
-        assert r.headers["location"] == "https://example.com"
+        assert r.headers["location"] == "https://example.com/"
 
 
 def test_not_found():
