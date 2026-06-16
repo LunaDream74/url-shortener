@@ -4,6 +4,19 @@ A URL shortener service with click analytics built with FastAPI, PostgreSQL, and
 
 **Live demo:** http://18.142.136.63:8000/docs
 
+## Performance
+
+Benchmarked against the live deployment (200 sequential requests, single client, measured from outside AWS — network RTT included):
+
+| Metric | Value |
+|--------|-------|
+| p50 latency | 62 ms |
+| p95 latency | 160 ms |
+| p99 latency | 387 ms |
+| Throughput | 12.4 req/s (single client) |
+
+> Numbers reflect internet round-trip to `ap-southeast-1`. Server-side latency is significantly lower.
+
 ## Features
 
 - Shorten any URL to an 8-character code
