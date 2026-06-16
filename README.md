@@ -1,6 +1,8 @@
 # URL Shortener
 
-A URL shortener service with click analytics built with FastAPI, PostgreSQL, and Redis. Containerized with Docker and deployed to AWS via GitHub Actions.
+A URL shortener service with click analytics built with FastAPI, PostgreSQL, and Redis. Containerized with Docker and deployed to AWS EC2 via GitHub Actions.
+
+**Live demo:** http://18.142.136.63:8000/docs
 
 ## Features
 
@@ -19,8 +21,6 @@ A URL shortener service with click analytics built with FastAPI, PostgreSQL, and
 docker compose up --build
 ```
 
-The API is available at `http://localhost:8000`.
-
 ### Local (no Docker)
 
 Requires PostgreSQL and Redis running locally.
@@ -38,7 +38,7 @@ uvicorn app.main:app --reload
 ### Shorten a URL
 
 ```bash
-curl -X POST http://localhost:8000/shorten \
+curl -X POST http://18.142.136.63:8000/shorten \
   -H "Content-Type: application/json" \
   -d '{"url": "https://example.com"}'
 ```
@@ -47,7 +47,7 @@ curl -X POST http://localhost:8000/shorten \
 {
   "short_code": "aB3xYz9q",
   "original_url": "https://example.com/",
-  "short_url": "http://localhost:8000/aB3xYz9q",
+  "short_url": "http://18.142.136.63:8000/aB3xYz9q",
   "clicks": 0,
   "created_at": "2026-06-16T00:00:00"
 }
@@ -64,7 +64,7 @@ Returns a `307 Temporary Redirect` to the original URL and increments the click 
 ### Stats
 
 ```bash
-curl http://localhost:8000/aB3xYz9q/stats
+curl http://18.142.136.63:8000/aB3xYz9q/stats
 ```
 
 ```json
@@ -88,7 +88,7 @@ GET /health  →  {"status": "healthy"}
 |----------|---------|-------------|
 | `DATABASE_URL` | `postgresql://shortener:shortener@localhost:5432/shortener` | SQLAlchemy connection string |
 | `REDIS_URL` | `redis://localhost:6379/0` | Redis connection URL |
-| `BASE_URL` | `http://localhost:8000` | Prefix used in `short_url` responses |
+| `BASE_URL` | `http://18.142.136.63:8000` | Prefix used in `short_url` responses |
 
 In Docker Compose these are set automatically. For production, override them via your environment or a `.env` file.
 
